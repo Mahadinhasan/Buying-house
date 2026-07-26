@@ -31,7 +31,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-14 sm:pt-20">
-        <p className="mono-label text-xs text-loom font-medium">About Meridian</p>
+        <p className="mono-label text-xs text-loom font-medium">About Demo Company name</p>
         <h1 className="mt-4 font-display text-4xl sm:text-5xl font-semibold tracking-tight max-w-3xl">
           Built by merchandisers who were tired of being the excuse between buyer and factory.
         </h1>

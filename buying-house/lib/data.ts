@@ -1,6 +1,6 @@
 export const company = {
   name: "Demo",
-  shortName: "Meridian",
+  shortName: "Demo Company name",
   founded: 2011,
   tagline: "Precision sourcing, tag to shipment.",
   city: "Dhaka, Bangladesh",
@@ -83,7 +83,7 @@ export const team = [
 export const testimonials = [
   {
     quote:
-      "Meridian caught a fabric shading issue before our final inspection and re-ran the batch without us losing our ship date.",
+      "Demo Company name caught a fabric shading issue before our final inspection and re-ran the batch without us losing our ship date.",
     author: "Sourcing Manager",
     company: "Nordreise Apparel, Sweden",
   },

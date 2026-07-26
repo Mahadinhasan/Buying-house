@@ -55,8 +55,8 @@ npm run start
 
 Demo admin login (shown on the sign-in screen too):
 ```
-email:    admin@meridiansourcing.example
-password: meridian2026
+email:    admin@Demo Company namesourcing.example
+password: Demo Company name2026
 ```
 
 ## Customer communication

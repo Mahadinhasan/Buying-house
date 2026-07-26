@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { Stamp, Lock, Menu } from "lucide-react";
 import AdminSidebar from "./AdminSidebar";
 
-const DEMO_USER = "admin@meridiansourcing.example";
-const DEMO_PASS = "meridian2026";
-const STORAGE_KEY = "meridian_admin_demo_auth";
+const DEMO_USER = "demo@gmail.com";
+const DEMO_PASS = "demo1234";
+const STORAGE_KEY = "Demo Company name_admin_demo_auth";
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
   const [authed, setAuthed] = useState<boolean | null>(null);
@@ -55,7 +55,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           <div className="flex items-center gap-2 justify-center mb-8">
             <Stamp size={22} className="text-brass-light" strokeWidth={1.75} />
             <span className="font-display text-lg font-semibold">
-              Meridian Staff
+              Demo Company name Staff
             </span>
           </div>
 
@@ -76,7 +76,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1.5 w-full rounded-sm border border-canvas/20 bg-ink px-3.5 py-2.5 text-sm outline-none focus:border-brass-light"
-              placeholder="you@meridiansourcing.example"
+              placeholder="you@Demo Company namesourcing.example"
             />
 
             <label className="mt-4 block text-xs font-medium text-canvas/70">
@@ -132,7 +132,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
       <div className="flex-1 min-w-0">
         <div className="lg:hidden flex items-center justify-between px-5 h-14 border-b border-ink/10 bg-paper">
-          <span className="font-display font-semibold text-sm">Meridian Admin</span>
+          <span className="font-display font-semibold text-sm">Demo Company name Admin</span>
           <button onClick={() => setMobileNavOpen(true)} aria-label="Open admin menu">
             <Menu size={20} />
           </button>

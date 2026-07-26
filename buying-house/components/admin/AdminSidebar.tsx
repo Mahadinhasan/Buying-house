@@ -33,7 +33,7 @@ export default function AdminSidebar({
       <div className="h-16 flex items-center gap-2 px-6 border-b border-canvas/10 shrink-0">
         <Stamp size={20} className="text-brass-light" strokeWidth={1.75} />
         <span className="font-display font-semibold text-sm">
-          Meridian Admin
+          Demo Company name Admin
         </span>
       </div>
 

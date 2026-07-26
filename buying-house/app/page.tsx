@@ -157,7 +157,7 @@ export default function HomePage() {
         <div className="grid lg:grid-cols-2 gap-14 items-center">
           <Reveal>
             <SectionHeading
-              eyebrow="About Meridian"
+              eyebrow="About Demo Company name"
               title="One accountable partner between your design floor and the production line."
               desc="Most delays and quality gaps happen in the handoff between buyer and factory. We remove the handoff — sitting inside both, with merchandisers who speak your brand's language and inspectors who answer only to you."
             />
