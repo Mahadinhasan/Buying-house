@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::selection {
+  background: #2f5d5033;
+  color: #14181f;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F1ECE1;
+  color: #14181F;
+}
+
+:focus-visible {
+  outline: 2px solid #2F5D50;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Signature: selvedge stripe — a thin ticking-stripe divider pulled from the
+   selvedge edge of woven fabric, used wherever the site needs to mark a seam
+   between sections instead of a plain hairline. */
+.selvedge {
+  height: 6px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #2F5D50 0px, #2F5D50 18px,
+    #F1ECE1 18px, #F1ECE1 22px,
+    #A9822E 22px, #A9822E 30px,
+    #F1ECE1 30px, #F1ECE1 34px,
+    #B23A2E 34px, #B23A2E 40px,
+    #F1ECE1 40px, #F1ECE1 46px
+  );
+  background-size: 46px 100%;
+}
+
+/* Signature: QC stamp badge — a rotated, double-ringed ink-stamp mark used as
+   the site's recurring trust signature (hero, stats, footer). */
+.stamp {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1.5px solid currentColor;
+  border-radius: 9999px;
+  transform: rotate(-7deg);
+}
+.stamp::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  opacity: 0.55;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mono-label {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.swatch-texture {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(20,24,31,0.05) 0, rgba(20,24,31,0.05) 1px, transparent 1px, transparent 5px),
+    repeating-linear-gradient(90deg, rgba(20,24,31,0.05) 0, rgba(20,24,31,0.05) 1px, transparent 1px, transparent 5px);
+}
