@@ -2,66 +2,132 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, Phone, MapPin, Stamp } from "lucide-react";
-import { company } from "@/lib/data";
+import { Mail, Phone, MapPin, Stamp, ShieldCheck, ExternalLink, Sparkles } from "lucide-react";
+import { company, certifications } from "@/lib/data";
 
 export default function Footer() {
   const pathname = usePathname();
   if (pathname?.startsWith("/admin")) return null;
 
   return (
-    <footer className="bg-ink text-canvas mt-24">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-ink text-canvas mt-28 border-t border-ink/20 relative overflow-hidden">
+      {/* Background Decorative Grid */}
+      <div className="absolute inset-0 bg-weave opacity-10 pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 pt-20 pb-12 relative z-10">
+        {/* Top Newsletter / RFQ Banner */}
+        <div className="bg-canvas/5 border border-canvas/10 rounded-2xl p-8 mb-16 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2">
-              <Stamp size={20} className="text-brass-light" strokeWidth={1.75} />
-              <span className="font-display text-base font-semibold">
-                {company.name}
-              </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brass/20 text-brass-light text-xs font-mono mb-2">
+              <Sparkles size={13} /> Direct Factory Booking
             </div>
-            <p className="mt-3 text-sm text-canvas/60 leading-relaxed">
-              Apparel sourcing and compliance partner, matching global brands
-              with audited factories across Bangladesh since {company.founded}.
+            <h3 className="font-display text-2xl font-semibold text-canvas">
+              Ready to sample your next apparel line?
+            </h3>
+            <p className="text-sm text-canvas/60 mt-1 max-w-xl">
+              Connect directly with our merchandisers in Dhaka for cost estimation, fabric swatches, and factory auditing.
             </p>
           </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-brass text-ink font-semibold px-6 py-3.5 text-sm hover:bg-brass-light transition-all duration-300 shadow-lifted shrink-0"
+          >
+            Submit Tech Pack RFQ &rarr;
+          </Link>
+        </div>
+
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-brass/20 border border-brass/30 flex items-center justify-center text-brass-light">
+                <Stamp size={22} strokeWidth={1.75} />
+              </div>
+              <div>
+                <span className="font-display text-lg font-bold tracking-tight text-canvas">
+                  {company.name}
+                </span>
+                <span className="mono-label text-[10px] text-brass-light block">
+                  Est. {company.founded} · {company.city}
+                </span>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-canvas/65 leading-relaxed">
+              Full-service apparel buying house and compliance manager. Matching international fashion brands with Tier-1 audited garment factories.
+            </p>
+
+            <div className="mt-6 flex items-center gap-2 text-xs font-mono text-emerald-400">
+              <ShieldCheck size={16} /> 100% Independent AQL 2.5 QC Inspected
+            </div>
+          </div>
 
           <div>
-            <p className="mono-label text-xs text-brass-light">Company</p>
-            <ul className="mt-4 space-y-2.5 text-sm text-canvas/70">
-              <li><Link href="/about" className="hover:text-canvas">About us</Link></li>
-              <li><Link href="/team" className="hover:text-canvas">Team &amp; certifications</Link></li>
-              <li><Link href="/blog" className="hover:text-canvas">Insights</Link></li>
-              <li><Link href="/contact" className="hover:text-canvas">Contact</Link></li>
+            <p className="mono-label text-xs text-brass-light font-semibold tracking-wider">
+              Navigation
+            </p>
+            <ul className="mt-5 space-y-3 text-sm text-canvas/70 font-medium">
+              <li>
+                <Link href="/" className="hover:text-brass-light transition-colors">
+                  Home Overview
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-brass-light transition-colors">
+                  Services &amp; Fabric Library
+                </Link>
+              </li>
+              <li>
+                <Link href="/products" className="hover:text-brass-light transition-colors">
+                  Products &amp; Factory Network
+                </Link>
+              </li>
+              <li>
+                <Link href="/team" className="hover:text-brass-light transition-colors">
+                  Team &amp; Merchandisers
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-brass-light transition-colors">
+                  About Our Sourcing
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
-            <p className="mono-label text-xs text-brass-light">Services</p>
-            <ul className="mt-4 space-y-2.5 text-sm text-canvas/70">
-              <li><Link href="/services" className="hover:text-canvas">Sourcing &amp; sampling</Link></li>
-              <li><Link href="/services" className="hover:text-canvas">Production management</Link></li>
-              <li><Link href="/services" className="hover:text-canvas">Quality control</Link></li>
-              <li><Link href="/products" className="hover:text-canvas">Factory network</Link></li>
-            </ul>
+            <p className="mono-label text-xs text-brass-light font-semibold tracking-wider">
+              Compliance Standards
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {certifications.map((c) => (
+                <span
+                  key={c.code}
+                  className="inline-flex items-center gap-1.5 text-xs font-mono bg-canvas/10 border border-canvas/15 px-3 py-1.5 rounded-md text-canvas/80"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-brass-light" />
+                  {c.code}
+                </span>
+              ))}
+            </div>
           </div>
 
           <div>
-            <p className="mono-label text-xs text-brass-light">Reach us</p>
-            <ul className="mt-4 space-y-3 text-sm text-canvas/70">
-              <li className="flex items-start gap-2">
-                <MapPin size={16} className="mt-0.5 shrink-0" />
+            <p className="mono-label text-xs text-brass-light font-semibold tracking-wider">
+              Dhaka Headquarters
+            </p>
+            <ul className="mt-5 space-y-3.5 text-sm text-canvas/75">
+              <li className="flex items-start gap-3">
+                <MapPin size={18} className="mt-0.5 shrink-0 text-brass-light" />
                 <span>{company.address}</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone size={16} className="shrink-0" />
+              <li className="flex items-center gap-3">
+                <Phone size={18} className="shrink-0 text-brass-light" />
                 <span>{company.phone}</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail size={16} className="shrink-0" />
+              <li className="flex items-center gap-3">
+                <Mail size={18} className="shrink-0 text-brass-light" />
                 <a
                   href={`mailto:${company.email}`}
-                  className="hover:text-canvas"
+                  className="hover:text-brass-light transition-colors border-b border-canvas/20 pb-0.5"
                 >
                   {company.email}
                 </a>
@@ -70,15 +136,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-canvas/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-canvas/45">
-            © {new Date().getFullYear()} {company.name}. All rights reserved.
-          </p>
+        <div className="mt-16 pt-8 border-t border-canvas/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-canvas/50">
+          <p>© {new Date().getFullYear()} {company.name}. Precision apparel sourcing &amp; quality control.</p>
           <Link
             href="/admin"
-            className="mono-label text-xs text-canvas/45 hover:text-brass-light transition-colors"
+            className="inline-flex items-center gap-1 hover:text-brass-light transition-colors"
           >
-            Staff login →
+            Staff Dashboard <ExternalLink size={12} />
           </Link>
         </div>
       </div>

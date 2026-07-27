@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Shirt,
+  Layers,
   Inbox,
   Newspaper,
   Stamp,
@@ -14,6 +15,7 @@ import {
 
 const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { href: "/admin/categories", label: "Categories & Nav", icon: Layers },
   { href: "/admin/products", label: "Products", icon: Shirt },
   { href: "/admin/messages", label: "Inquiries", icon: Inbox },
   { href: "/admin/blog", label: "Blog posts", icon: Newspaper },

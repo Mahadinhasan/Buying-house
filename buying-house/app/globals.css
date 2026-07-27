@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-ink: 20 24 31;
+  --color-canvas: 241 236 225;
+  --color-paper: 250 247 239;
+}
+
+html.dark {
+  --color-ink: 248 245 238;
+  --color-canvas: 14 17 23;
+  --color-paper: 22 27 34;
+}
+
 ::selection {
   background: #2f5d5033;
   color: #14181f;
@@ -12,14 +24,21 @@ html {
 }
 
 body {
-  background-color: #F1ECE1;
-  color: #14181F;
+  background-color: rgb(var(--color-canvas));
+  color: rgb(var(--color-ink));
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark ::selection {
+  background: #3f756655;
+  color: #F8F5EE;
 }
 
 :focus-visible {
   outline: 2px solid #2F5D50;
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -31,9 +50,35 @@ body {
   }
 }
 
-/* Signature: selvedge stripe — a thin ticking-stripe divider pulled from the
-   selvedge edge of woven fabric, used wherever the site needs to mark a seam
-   between sections instead of a plain hairline. */
+/* Glassmorphism & Premium Lighting Effects */
+.glass-card {
+  background: rgba(250, 247, 239, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(20, 24, 31, 0.08);
+}
+
+html.dark .glass-card {
+  background: rgba(20, 24, 31, 0.85);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.glass-card-dark {
+  background: rgba(20, 24, 31, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.gold-glow {
+  box-shadow: 0 0 25px -5px rgba(169, 130, 46, 0.25);
+}
+
+.loom-glow {
+  box-shadow: 0 0 30px -5px rgba(47, 93, 80, 0.3);
+}
+
+/* Signature: selvedge stripe divider */
 .selvedge {
   height: 6px;
   width: 100%;
@@ -49,8 +94,7 @@ body {
   background-size: 46px 100%;
 }
 
-/* Signature: QC stamp badge — a rotated, double-ringed ink-stamp mark used as
-   the site's recurring trust signature (hero, stats, footer). */
+/* Luxury stamp badge */
 .stamp {
   position: relative;
   display: inline-flex;
@@ -58,23 +102,24 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 1.5px solid currentColor;
+  border: 1.75px solid currentColor;
   border-radius: 9999px;
-  transform: rotate(-7deg);
+  transform: rotate(-6deg);
+  box-shadow: 0 4px 14px rgba(178, 58, 46, 0.12);
 }
 .stamp::before {
   content: "";
   position: absolute;
   inset: 5px;
-  border: 1px solid currentColor;
+  border: 1px stroke currentColor;
   border-radius: 9999px;
-  opacity: 0.55;
+  opacity: 0.6;
 }
 
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.is-visible {
   opacity: 1;
@@ -82,12 +127,63 @@ body {
 }
 
 .mono-label {
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .swatch-texture {
   background-image:
-    repeating-linear-gradient(0deg, rgba(20,24,31,0.05) 0, rgba(20,24,31,0.05) 1px, transparent 1px, transparent 5px),
-    repeating-linear-gradient(90deg, rgba(20,24,31,0.05) 0, rgba(20,24,31,0.05) 1px, transparent 1px, transparent 5px);
+    repeating-linear-gradient(0deg, rgba(20,24,31,0.06) 0, rgba(20,24,31,0.06) 1px, transparent 1px, transparent 5px),
+    repeating-linear-gradient(90deg, rgba(20,24,31,0.06) 0, rgba(20,24,31,0.06) 1px, transparent 1px, transparent 5px);
+}
+
+html.dark .swatch-texture {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 5px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 5px);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #14181F 0%, #2F5D50 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .gradient-text {
+  background: linear-gradient(135deg, #F8F5EE 0%, #3F7566 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-gold-text {
+  background: linear-gradient(135deg, #A9822E 0%, #C9A94E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom scrollbar for gallery and tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(20, 24, 31, 0.04);
+}
+html.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(47, 93, 80, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(47, 93, 80, 0.6);
+}
+
+/* Dark mode specific enhancements */
+html.dark .border-ink\/10,
+html.dark .border-ink\/15,
+html.dark .border-ink\/20,
+html.dark .border-ink\/5 {
+  border-color: rgba(255, 255, 255, 0.12);
 }
