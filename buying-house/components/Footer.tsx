@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, Phone, MapPin, Stamp, ShieldCheck, ExternalLink, Sparkles } from "lucide-react";
-import { company, certifications } from "@/lib/data";
+import { Mail, Phone, MapPin, ShieldCheck, ExternalLink, Sparkles } from "lucide-react";
+import { useSiteStore } from "@/lib/siteStore";
+import BrandLogoIcon from "@/components/BrandLogoIcon";
 
 export default function Footer() {
   const pathname = usePathname();
+  const { branding, about } = useSiteStore();
+
   if (pathname?.startsWith("/admin")) return null;
 
   return (
@@ -39,20 +42,24 @@ export default function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-brass/20 border border-brass/30 flex items-center justify-center text-brass-light">
-                <Stamp size={22} strokeWidth={1.75} />
+              <div className="w-10 h-10 rounded-lg bg-brass/20 border border-brass/30 flex items-center justify-center text-brass-light shrink-0">
+                {branding.logoType === "image" && branding.logoUrl ? (
+                  <img src={branding.logoUrl} alt="Logo" className="w-6 h-6 object-contain" />
+                ) : (
+                  <BrandLogoIcon name={branding.logoIcon} size={22} strokeWidth={1.75} />
+                )}
               </div>
               <div>
                 <span className="font-display text-lg font-bold tracking-tight text-canvas">
-                  {company.name}
+                  {branding.name}
                 </span>
                 <span className="mono-label text-[10px] text-brass-light block">
-                  Est. {company.founded} · {company.city}
+                  Est. {branding.founded} · {branding.city}
                 </span>
               </div>
             </div>
             <p className="mt-4 text-sm text-canvas/65 leading-relaxed">
-              Full-service apparel buying house and compliance manager. Matching international fashion brands with Tier-1 audited garment factories.
+              {branding.tagline || "Full-service apparel buying house and compliance manager. Matching international fashion brands with Tier-1 audited garment factories."}
             </p>
 
             <div className="mt-6 flex items-center gap-2 text-xs font-mono text-emerald-400">
@@ -98,7 +105,7 @@ export default function Footer() {
               Compliance Standards
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              {certifications.map((c) => (
+              {(about.certifications || []).map((c) => (
                 <span
                   key={c.code}
                   className="inline-flex items-center gap-1.5 text-xs font-mono bg-canvas/10 border border-canvas/15 px-3 py-1.5 rounded-md text-canvas/80"
@@ -117,19 +124,19 @@ export default function Footer() {
             <ul className="mt-5 space-y-3.5 text-sm text-canvas/75">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="mt-0.5 shrink-0 text-brass-light" />
-                <span>{company.address}</span>
+                <span>{branding.address}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="shrink-0 text-brass-light" />
-                <span>{company.phone}</span>
+                <span>{branding.phone}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="shrink-0 text-brass-light" />
                 <a
-                  href={`mailto:${company.email}`}
+                  href={`mailto:${branding.email}`}
                   className="hover:text-brass-light transition-colors border-b border-canvas/20 pb-0.5"
                 >
-                  {company.email}
+                  {branding.email}
                 </a>
               </li>
             </ul>
@@ -137,7 +144,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-canvas/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-canvas/50">
-          <p>© {new Date().getFullYear()} {company.name}. Precision apparel sourcing &amp; quality control.</p>
+          <p>© {new Date().getFullYear()} {branding.name}. Precision apparel sourcing &amp; quality control.</p>
           <Link
             href="/admin"
             className="inline-flex items-center gap-1 hover:text-brass-light transition-colors"

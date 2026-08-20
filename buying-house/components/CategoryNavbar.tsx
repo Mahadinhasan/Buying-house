@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useCategoriesStore } from "@/lib/categoriesStore";
+import { useSiteStore } from "@/lib/siteStore";
 import { ChevronDown, Tag, ArrowRight, Layers, Sparkles } from "lucide-react";
 
 const GENDER_FILTERS = [
@@ -16,7 +16,7 @@ const GENDER_FILTERS = [
 ] as const;
 
 export default function CategoryNavbar() {
-  const { publishedCategories } = useCategoriesStore();
+  const { publishedCategories } = useSiteStore();
   const [activeGender, setActiveGender] = useState<string>("ALL");
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [megaOpen, setMegaOpen] = useState<boolean>(false);

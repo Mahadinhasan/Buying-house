@@ -1,36 +1,17 @@
+"use client";
+
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import SelvedgeDivider from "@/components/SelvedgeDivider";
 import FabricShowcase from "@/components/FabricShowcase";
 import FabricCompanyLogos from "@/components/FabricCompanyLogos";
-import { process } from "@/lib/data";
-import { CheckCircle2, ShieldCheck, Sparkles, SlidersHorizontal, ArrowRight } from "lucide-react";
+import { useSiteStore } from "@/lib/siteStore";
+import { Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-const addOns = [
-  {
-    title: "Fabric & Trim R&D",
-    desc: "Lab-dip matching, wash-down testing, and alternate fiber sourcing when a spec fabric is unavailable at your target cost.",
-    tag: "Textile R&D",
-  },
-  {
-    title: "Third-Party Audit Coordination",
-    desc: "We schedule and accompany BSCI, WRAP, or Sedex audits, and manage corrective action plans (CAP) afterward.",
-    tag: "Compliance",
-  },
-  {
-    title: "Consolidation & Warehousing",
-    desc: "Multi-factory orders consolidated at our Dhaka warehouse into a single container shipment, reducing freight cost per unit.",
-    tag: "Logistics",
-  },
-  {
-    title: "Design & Tech Pack Support",
-    desc: "For brands without an in-house pattern team, we build complete tech packs from sketches or reference garments.",
-    tag: "Patterning",
-  },
-];
-
 export default function ServicesPage() {
+  const { processSteps, addOnServices } = useSiteStore();
+
   return (
     <>
       {/* Hero Header */}
@@ -64,14 +45,14 @@ export default function ServicesPage() {
         <Reveal>
           <SectionHeading
             eyebrow="Core Process"
-            title="The five stages of every order."
+            title="The stages of every order."
             desc="One dedicated merchandiser handles your order from yarn booking to container seal."
           />
         </Reveal>
 
         <div className="mt-16 space-y-8">
-          {process.map((p, i) => (
-            <Reveal key={p.step} delay={i * 70}>
+          {processSteps.map((p, i) => (
+            <Reveal key={p.id || p.step} delay={i * 70}>
               <div className="bg-paper border border-ink/10 rounded-2xl p-6 sm:p-8 hover:border-loom/40 hover:shadow-lifted transition-all duration-300">
                 <div className="grid sm:grid-cols-[6rem_1fr] gap-6 items-start">
                   <div className="w-20 h-20 rounded-2xl bg-canvas border border-ink/10 flex items-center justify-center font-mono text-3xl font-bold text-loom shadow-xs">
@@ -123,8 +104,8 @@ export default function ServicesPage() {
         </Reveal>
 
         <div className="mt-14 grid sm:grid-cols-2 gap-6">
-          {addOns.map((a, i) => (
-            <Reveal key={a.title} delay={i * 70}>
+          {addOnServices.map((a, i) => (
+            <Reveal key={a.id || a.title} delay={i * 70}>
               <div className="bg-paper border border-ink/10 rounded-2xl p-7 h-full hover:border-loom/40 hover:shadow-lifted transition-all duration-300 flex flex-col justify-between">
                 <div>
                   <span className="mono-label text-[10px] bg-brass/15 text-brass-dark px-3 py-1 rounded-full font-bold">

@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { Plus, Trash2, ArrowRight, Layers } from "lucide-react";
-import { useCategoriesStore } from "@/lib/categoriesStore";
+import { useSiteStore } from "@/lib/siteStore";
 
 export default function AdminProductsPage() {
-  const { categories, saveCategories } = useCategoriesStore();
+  const { categories, updateCategories } = useSiteStore();
 
   function toggleStatus(id: string) {
-    saveCategories(
+    updateCategories(
       categories.map((p) =>
         p.id === id
           ? { ...p, status: p.status === "Published" ? "Draft" : "Published" }
@@ -19,7 +19,7 @@ export default function AdminProductsPage() {
 
   function remove(id: string) {
     if (confirm("Are you sure you want to delete this category?")) {
-      saveCategories(categories.filter((p) => p.id !== id));
+      updateCategories(categories.filter((p) => p.id !== id));
     }
   }
 

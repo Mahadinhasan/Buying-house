@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ThemeStyleInjector from "@/components/ThemeStyleInjector";
 
 const display = Bitter({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
       <body
         className={`${display.variable} ${body.variable} ${mono.variable} font-body bg-canvas text-ink antialiased`}
       >
+        <ThemeStyleInjector />
         <Navbar />
         <main>{children}</main>
         <Footer />

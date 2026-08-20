@@ -6,12 +6,28 @@
   --color-ink: 20 24 31;
   --color-canvas: 241 236 225;
   --color-paper: 250 247 239;
+  --color-loom: 47 93 80;
+  --color-loom-light: 63 117 102;
+  --color-loom-dark: 31 63 54;
+  --color-brass: 169 130 46;
+  --color-brass-light: 201 169 78;
+  --color-brass-dark: 140 107 28;
+  --color-stamp: 178 58 46;
+  --color-stamp-light: 209 82 70;
 }
 
 html.dark {
   --color-ink: 248 245 238;
   --color-canvas: 14 17 23;
   --color-paper: 22 27 34;
+  --color-loom: 63 117 102;
+  --color-loom-light: 79 146 128;
+  --color-loom-dark: 47 93 80;
+  --color-brass: 201 169 78;
+  --color-brass-light: 224 195 112;
+  --color-brass-dark: 169 130 46;
+  --color-stamp: 209 82 70;
+  --color-stamp-light: 224 105 94;
 }
 
 ::selection {

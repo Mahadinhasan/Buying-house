@@ -8,7 +8,7 @@ import SelvedgeDivider from "@/components/SelvedgeDivider";
 import FabricShowcase from "@/components/FabricShowcase";
 import FabricCompanyLogos from "@/components/FabricCompanyLogos";
 import { factories } from "@/lib/data";
-import { useCategoriesStore } from "@/lib/categoriesStore";
+import { useSiteStore } from "@/lib/siteStore";
 import { Factory, ShieldCheck, Sparkles, ArrowRight, Tag } from "lucide-react";
 
 const portfolio = [
@@ -21,7 +21,7 @@ const portfolio = [
 ];
 
 export default function ProductsPage() {
-  const { publishedCategories } = useCategoriesStore();
+  const { publishedCategories } = useSiteStore();
   const [selectedGender, setSelectedGender] = useState<string>("ALL");
 
   const categoriesToDisplay =

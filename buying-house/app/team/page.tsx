@@ -1,10 +1,14 @@
+"use client";
+
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import SelvedgeDivider from "@/components/SelvedgeDivider";
 import StampBadge from "@/components/StampBadge";
-import { team, certifications } from "@/lib/data";
+import { useSiteStore } from "@/lib/siteStore";
 
 export default function TeamPage() {
+  const { team, about } = useSiteStore();
+
   return (
     <>
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-14 sm:pt-20">
@@ -24,13 +28,20 @@ export default function TeamPage() {
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {team.map((t, i) => (
-            <Reveal key={t.name} delay={i * 60}>
-              <div className="bg-paper border border-ink/10 rounded-card p-6 text-center h-full">
-                <div className="mx-auto w-16 h-16 rounded-full bg-loom/10 text-loom font-display font-semibold flex items-center justify-center text-xl">
-                  {t.initials}
+            <Reveal key={t.id || t.name} delay={i * 60}>
+              <div className="bg-paper border border-ink/10 rounded-2xl p-6 text-center h-full shadow-xs hover:border-loom/40 hover:shadow-soft transition-all">
+                <div className="mx-auto w-16 h-16 rounded-full bg-loom/10 border border-loom/20 text-loom font-display font-bold flex items-center justify-center text-xl overflow-hidden">
+                  {t.avatar ? (
+                    <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                  ) : (
+                    t.initials || "MD"
+                  )}
                 </div>
-                <p className="mt-4 font-semibold text-ink">{t.name}</p>
-                <p className="mt-1 text-xs text-ink/55">{t.role}</p>
+                <p className="mt-4 font-display font-bold text-lg text-ink">{t.name}</p>
+                <p className="mt-1 text-xs text-loom font-medium">{t.role}</p>
+                {t.bio && (
+                  <p className="mt-3 text-xs text-ink/65 leading-relaxed">{t.bio}</p>
+                )}
               </div>
             </Reveal>
           ))}
@@ -48,8 +59,8 @@ export default function TeamPage() {
           </Reveal>
 
           <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((c, i) => (
-              <Reveal key={c.code} delay={i * 60}>
+            {(about.certifications || []).map((c, i) => (
+              <Reveal key={c.id || c.code} delay={i * 60}>
                 <div className="flex items-center gap-4 bg-canvas/[0.06] border border-canvas/15 rounded-card p-5">
                   <StampBadge
                     eyebrow="Certified"

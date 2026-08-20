@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, MessageCircle, ShieldCheck, Sparkles, Award, Factory, CheckCircle2, FileText, ChevronRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
@@ -6,21 +8,14 @@ import StampBadge from "@/components/StampBadge";
 import SelvedgeDivider from "@/components/SelvedgeDivider";
 import FabricShowcase from "@/components/FabricShowcase";
 import FabricCompanyLogos from "@/components/FabricCompanyLogos";
-import {
-  certifications,
-  company,
-  stats,
-  process,
-  productCategories,
-  factories,
-  team,
-  testimonials,
-  blogPosts,
-} from "@/lib/data";
+import { useSiteStore } from "@/lib/siteStore";
+import { factories, testimonials } from "@/lib/data";
 
 export default function HomePage() {
-  const whatsappHref = `https://wa.me/${company.whatsappNumber}?text=${encodeURIComponent(
-    company.whatsappMessage
+  const { branding, about, processSteps, publishedCategories } = useSiteStore();
+
+  const whatsappHref = `https://wa.me/${branding.whatsappNumber}?text=${encodeURIComponent(
+    branding.whatsappMessage
   )}`;
 
   return (
@@ -36,7 +31,7 @@ export default function HomePage() {
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-paper border border-ink/15 text-xs font-mono text-ink/80 shadow-xs mb-6">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Audited Sourcing &amp; Compliance Hub · {company.city}
+                Audited Sourcing &amp; Compliance Hub · {branding.city}
               </div>
 
               <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.06] font-bold tracking-tight text-ink">
@@ -44,7 +39,7 @@ export default function HomePage() {
               </h1>
 
               <p className="mt-6 text-base sm:text-lg text-ink/75 leading-relaxed max-w-2xl">
-                {company.name} sources, samples, and ships high-volume apparel for international brands — directly connected to audited textile mills and compliance-checked factories across Bangladesh.
+                {branding.name} sources, samples, and ships high-volume apparel for international brands — directly connected to audited textile mills and compliance-checked factories across Bangladesh.
               </p>
 
               {/* CTAs */}
@@ -69,7 +64,7 @@ export default function HomePage() {
               <div className="mt-12 pt-8 border-t border-ink/10 flex flex-wrap items-center gap-8">
                 <div className="flex items-center gap-4">
                   <StampBadge
-                    eyebrow="Since 2011"
+                    eyebrow={`Since ${branding.founded}`}
                     main="500+"
                     sub="Shipments Approved"
                     size={88}
@@ -98,7 +93,7 @@ export default function HomePage() {
                       </span>
                     </div>
                     <span className="font-mono text-xs font-bold text-loom bg-canvas px-2.5 py-1 rounded border border-ink/10">
-                      BH-2026-0417
+                      BH-{new Date().getFullYear()}-0417
                     </span>
                   </div>
 
@@ -107,10 +102,12 @@ export default function HomePage() {
                       <p className="mono-label text-[11px] text-ink/50">
                         Fabric Category Swatches
                       </p>
-                      <span className="text-[11px] font-mono text-brass font-semibold">6 Active Mills</span>
+                      <span className="text-[11px] font-mono text-brass font-semibold">
+                        {publishedCategories.length} Categories Live
+                      </span>
                     </div>
                     <div className="mt-3 grid grid-cols-6 gap-2">
-                      {productCategories.map((p) => (
+                      {publishedCategories.slice(0, 6).map((p) => (
                         <div
                           key={p.name}
                           title={p.name}
@@ -167,7 +164,7 @@ export default function HomePage() {
             Factories Audited &amp; Certified to International Standards
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
-            {certifications.map((c) => (
+            {(about.certifications || []).map((c) => (
               <div key={c.code} className="flex items-center gap-2.5 text-ink/75 bg-canvas px-4 py-2 rounded-xl border border-ink/10 shadow-xs">
                 <span className="w-2 h-2 rounded-full bg-brass" />
                 <span className="font-display text-sm font-bold">{c.code}</span>
@@ -184,7 +181,7 @@ export default function HomePage() {
           <div className="lg:col-span-6">
             <Reveal>
               <SectionHeading
-                eyebrow="About Demo Company"
+                eyebrow={`About ${branding.shortName || branding.name}`}
                 title="One accountable team sitting inside the factory and your design room."
                 desc="Most delays and quality gaps happen in the handoff between buyer and factory. We remove the handoff — with dedicated merchandisers, fabric R&D specialists, and inspectors who answer directly to you."
               />
@@ -202,9 +199,9 @@ export default function HomePage() {
           <div className="lg:col-span-6">
             <Reveal delay={100}>
               <div className="grid grid-cols-2 gap-4">
-                {stats.map((s) => (
+                {(about.stats || []).map((s) => (
                   <div
-                    key={s.label}
+                    key={s.id || s.label}
                     className="bg-paper border border-ink/10 rounded-2xl p-6 shadow-soft hover:shadow-lifted transition-shadow"
                   >
                     <p className="font-display text-4xl font-bold text-loom">
@@ -228,14 +225,14 @@ export default function HomePage() {
         <Reveal>
           <SectionHeading
             eyebrow="Order Lifecycle"
-            title="Five stages. Guaranteed quality at every seam."
+            title="Sourcing stages. Guaranteed quality at every seam."
             align="center"
           />
         </Reveal>
 
         <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {process.map((p, i) => (
-            <Reveal key={p.step} delay={i * 80}>
+          {processSteps.slice(0, 5).map((p, i) => (
+            <Reveal key={p.id || p.step} delay={i * 80}>
               <div className="bg-paper border border-ink/10 rounded-2xl p-6 h-full flex flex-col justify-between hover:border-loom/40 hover:shadow-soft transition-all duration-300 relative group">
                 <div>
                   <span className="font-mono text-4xl font-bold text-ink/15 group-hover:text-loom/30 transition-colors">
@@ -271,14 +268,14 @@ export default function HomePage() {
           <Reveal>
             <SectionHeading
               eyebrow="Apparel Categories"
-              title="Six specialized apparel product families."
+              title="Specialized apparel product families."
               desc="Every category below is matched to audited mills with specialized knitting, weaving, and wash capabilities."
             />
           </Reveal>
 
           <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {productCategories.map((p, i) => (
-              <Reveal key={p.name} delay={i * 50}>
+            {publishedCategories.map((p, i) => (
+              <Reveal key={p.id || p.name} delay={i * 50}>
                 <div className="group bg-canvas border border-ink/10 rounded-2xl overflow-hidden hover:shadow-lifted hover:border-loom/40 transition-all duration-300 flex flex-col h-full">
                   <div className="h-36 relative overflow-hidden bg-paper border-b border-ink/10">
                     <img
@@ -417,10 +414,10 @@ export default function HomePage() {
                 <MessageCircle size={18} /> WhatsApp Merchandiser Direct
               </a>
               <a
-                href={`mailto:${company.email}`}
+                href={`mailto:${branding.email}`}
                 className="inline-flex items-center gap-2 rounded-full border border-paper/40 text-paper px-7 py-3.5 text-sm font-semibold hover:border-paper hover:bg-loom-dark transition-all duration-300"
               >
-                Email {company.email}
+                Email {branding.email}
               </a>
             </div>
           </div>

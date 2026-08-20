@@ -5,6 +5,7 @@ const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
@@ -13,14 +14,18 @@ const config: Config = {
         canvas: "rgb(var(--color-canvas) / <alpha-value>)",
         paper: "rgb(var(--color-paper) / <alpha-value>)",
         loom: {
-          DEFAULT: "#2F5D50",
-          light: "#3F7566",
-          dark: "#1F3F36",
+          DEFAULT: "rgb(var(--color-loom) / <alpha-value>)",
+          light: "rgb(var(--color-loom-light) / <alpha-value>)",
+          dark: "rgb(var(--color-loom-dark) / <alpha-value>)",
         },
-        stamp: "#B23A2E",
+        stamp: {
+          DEFAULT: "rgb(var(--color-stamp) / <alpha-value>)",
+          light: "rgb(var(--color-stamp-light) / <alpha-value>)",
+        },
         brass: {
-          DEFAULT: "#A9822E",
-          light: "#C9A94E",
+          DEFAULT: "rgb(var(--color-brass) / <alpha-value>)",
+          light: "rgb(var(--color-brass-light) / <alpha-value>)",
+          dark: "rgb(var(--color-brass-dark) / <alpha-value>)",
         },
       },
       fontFamily: {

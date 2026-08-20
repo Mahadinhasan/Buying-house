@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, Stamp, Sparkles, Sun, Moon, ChevronDown, ArrowRight, Layers } from "lucide-react";
-import { company } from "@/lib/data";
-import { useCategoriesStore } from "@/lib/categoriesStore";
+import { useSiteStore } from "@/lib/siteStore";
+import BrandLogoIcon from "@/components/BrandLogoIcon";
 
 const links = [
   { href: "/", label: "Home" },
@@ -18,7 +18,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { publishedCategories } = useCategoriesStore();
+  const { branding, publishedCategories } = useSiteStore();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -83,11 +83,15 @@ export default function Navbar() {
           {/* Logo & Brand Mark */}
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
             <div className="w-10 h-10 rounded-lg bg-loom/10 border border-loom/20 flex items-center justify-center text-loom group-hover:bg-loom group-hover:text-paper transition-all duration-300">
-              <Stamp size={22} strokeWidth={2} />
+              {branding.logoType === "image" && branding.logoUrl ? (
+                <img src={branding.logoUrl} alt="Logo" className="w-6 h-6 object-contain" />
+              ) : (
+                <BrandLogoIcon name={branding.logoIcon} size={22} strokeWidth={2} />
+              )}
             </div>
             <div>
               <span className="font-display font-bold text-lg text-ink tracking-tight block leading-none">
-                {company.shortName || company.name}
+                {branding.shortName || branding.name}
               </span>
               <span className="mono-label text-[10px] text-loom font-semibold tracking-wider">
                 Apparel Sourcing &amp; Compliance
